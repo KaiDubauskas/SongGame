@@ -1,9 +1,8 @@
 
+import App from "./App";
 
 export default function Home() {
   return (
-    <main className="">
-      Hello World
-    </main>
+    <App />
   )
 }
