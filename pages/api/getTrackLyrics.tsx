@@ -12,8 +12,8 @@ export default async function handler(
     res: NextApiResponse<ApiResponse>
 ) {
     try {
-        const artistId = req.query.artistId as string;
-        const response = await fetch(`https://api.musixmatch.com/ws/1.1/artist.albums.get?artist_id=${artistId}&page_size=30&s_release_date=desc&apikey=${MUSIXMATCH_API_KEY}`, {
+        const trackId = req.query.trackId as string;
+        const response = await fetch(`https://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id=${trackId}&page_size=25&apikey=${MUSIXMATCH_API_KEY}`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
