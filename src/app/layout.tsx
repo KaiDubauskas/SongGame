@@ -1,31 +1,37 @@
 "use client";
-import { useState } from 'react';
-import { Inter } from 'next/font/google';
-import { GameContext } from "./resources/contexts";
 import { MantineProvider } from "@mantine/core";
-import './globals.css'
+import { GameContextProvider } from "src/resources/contexts";
 import "@mantine/core/styles.css";
+import '@mantine/notifications/styles.css';
+import './globals.css';
+import { usePathname, useRouter } from "next/navigation";
+import { use, useEffect, useState } from "react";
+import { useForceUpdate } from "@mantine/hooks";
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function RootLayout({ children, }: {
-  children: React.ReactNode
+export default function RootLayout({ configure, play }: {
+    configure: React.ReactNode,
+    play: React.ReactNode,
 }) {
-  const [artistName, setArtistName] = useState<string>("");
-  const [artistId, setArtistId] = useState<string>("");
+    const pathname = usePathname() || "";
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const router = useRouter();
 
+    useEffect(() => {
+        if (pathname == "/play") {
+            setIsPlaying(true);
+        }
+    }, [pathname])
 
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <MantineProvider>
-          <GameContext.Provider value={{ artistName, setArtistName, artistId, setArtistId }}>
+    return (
+        <html lang="en">
+            <body>
+                <MantineProvider>
+                    <GameContextProvider>
+                        {isPlaying ? play : configure}
+                    </GameContextProvider>
+                </MantineProvider>
+            </body>
+        </html>
 
-            {children}
-
-          </GameContext.Provider>
-        </MantineProvider>
-      </body>
-    </html >
-  )
-}
+    )
+} 
