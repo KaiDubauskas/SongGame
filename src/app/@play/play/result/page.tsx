@@ -10,10 +10,8 @@ const App: React.FC = () => {
     const numQuestions = searchParams?.get('numQuestions');
 
     const handlePlayAgain = () => {
-        router.push('/configure/play');
+        router.push('/');
     }
-
-
 
     return (
         <div>

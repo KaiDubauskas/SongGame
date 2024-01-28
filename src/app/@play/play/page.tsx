@@ -1,9 +1,11 @@
 "use client";
-import { useState, useEffect, useContext } from "react";
-import { useRouter } from 'next/navigation';
-import { SongGuesserContext } from "@/resources/contexts";
-import { TextInput, Button } from "@mantine/core";
-import { notifications } from '@mantine/notifications';
+import router, { useRouter } from "next/navigation"
+import { useState, useEffect, useContext, useRef } from "react";
+import { Album, useGameAuth, useSongGameAuth } from "src/resources/contexts";
+import { Button, TextInput, Group } from "@mantine/core";
+import { useDidUpdate } from '@mantine/hooks';
+import { usePrevious } from '@mantine/hooks';
+import { Notifications, notifications } from "@mantine/notifications";
 
 
 type Question = {
@@ -18,7 +20,7 @@ type Track = {
 
 const App: React.FC = () => {
     const router = useRouter();
-    const { albums, numQuestions } = useContext(SongGuesserContext);
+    const { albums, numQuestions } = useSongGameAuth();
     const [questions, setQuestions] = useState<Question[]>([]);
     const [questionNumber, setQuestionNumber] = useState<number>(0);
     const [answer, setAnswer] = useState<string>("");
@@ -65,7 +67,7 @@ const App: React.FC = () => {
 
     useEffect(() => {
         if (questionNumber >= numQuestions) {
-            router.push(`/configure/result?numCorrect=${numCorrect}&numQuestions=${numQuestions}`);
+            router.push(`/play/result?numCorrect=${numCorrect}&numQuestions=${numQuestions}`);
         }
     }, [questionNumber])
 
@@ -86,23 +88,20 @@ const App: React.FC = () => {
     }
 
     const handleSubmit = () => {
-        if (questionNumber < questions.length) {
-            if (answer.toLowerCase() === questions[questionNumber].answer.toLowerCase()) {
-                setNumCorrect((prevNumCorrect) => prevNumCorrect + 1);
-                showCorrectNotification();
-            } else {
-                showInCorrectNotification(questions[questionNumber].answer);
-            }
-            setQuestionNumber((prevQuestionNumber) => prevQuestionNumber + 1);
-            setAnswer("");
+        if (answer.toLowerCase() === questions[questionNumber].answer.toLowerCase()) {
+            setNumCorrect((prevNumCorrect) => prevNumCorrect + 1);
+            showCorrectNotification();
         } else {
-
-            // router.push(`/configure/result?numCorrect=${numCorrect}&numQuestions=${numQuestions}`);
+            showInCorrectNotification(questions[questionNumber].answer);
         }
+        setQuestionNumber((prevQuestionNumber) => prevQuestionNumber + 1);
+        setAnswer("");
     }
 
     return (
+
         <div>
+            <Notifications position="top-center" zIndex={1000} />
             {isLoading ? <h1>Fetching Questions...</h1> :
                 <div>
                     <h1>Question: {questionNumber + 1}/{numQuestions}</h1>
@@ -112,7 +111,20 @@ const App: React.FC = () => {
                 </div>
             }
         </div>
+
     )
 }
 
 export default App;
+
+
+// {
+//     albums?.map((album: Album, idx: number) => (
+//         <div key={idx} className="flex">
+//             <input type="checkbox" />
+//             <p>{album.albumName}</p>
+//         </div>
+//     ))
+// }
+
+
