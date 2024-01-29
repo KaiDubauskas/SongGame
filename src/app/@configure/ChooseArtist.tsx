@@ -1,9 +1,10 @@
 "use client";
 import { useState, useEffect, useContext, useRef } from "react";
-import { useGameAuth } from "src/resources/contexts";
+import { useGameAuth } from "../../resources/contexts";
 import { Button, TextInput, Group } from "@mantine/core";
 import { useDidUpdate } from '@mantine/hooks';
 import { usePrevious } from '@mantine/hooks';
+import React from "react";
 
 
 const ChooseArtist: React.FC = () => {

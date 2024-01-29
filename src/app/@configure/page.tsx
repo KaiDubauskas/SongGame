@@ -1,20 +1,22 @@
 "use client";
 import { useState, useEffect, useContext } from "react";
 import { Button, Group, MantineProvider, Stepper } from "@mantine/core";
-import { useGameAuth, useSongGameAuth } from "@/resources/contexts";
+import { useGameAuth, useSongGameAuth } from "../../resources/contexts";
+import { Transition } from '@mantine/core';
 import ChooseArtist from "./ChooseArtist";
 import ChooseAlbums from "./ChooseAlbums";
+import ChooseMode from "./ChooseMode"
 import "@mantine/core/styles.css";
+import "./configure.css";
+import "../globals.css";
 import { useRouter } from "next/navigation";
+import React from "react";
+
 
 const App: React.FC = () => {
     const router = useRouter();
-
     const [progressIdx, setProgressIdx] = useState<number>(0);
     const { artistName } = useGameAuth();
-    const { albums } = useSongGameAuth();
-
-
 
     const nextStep = () => {
         if (progressIdx === 2) {
@@ -28,24 +30,23 @@ const App: React.FC = () => {
     }
 
     return (
-
-        <div className="center flex-col w-screen h-screen">
-            <Stepper active={progressIdx} size="sm">
-                <Stepper.Step label="Choose an Artist" description={artistName}>
+        <div className="stepper-container w-full h-full pb-5 px-10 text-murk-text">
+            <Stepper active={progressIdx} size="md">
+                <Stepper.Step label="Artist" description={artistName}>
                     <ChooseArtist />
                 </Stepper.Step>
-                <Stepper.Step label="Choose a Game mode">
-                    <h1>{artistName}</h1>
+                <Stepper.Step label="Game Mode">
+                    <ChooseMode />
                 </Stepper.Step>
-                <Stepper.Step label="Configure Game" description="">
+                <Stepper.Step label="Configure" description="">
                     <ChooseAlbums />
                 </Stepper.Step>
             </Stepper>
-
-            <Group justify="center" mt="xl">
-                {progressIdx > 0 && <Button variant="default" onClick={prevStep}>Back</Button>}
-                <Button variant="default" onClick={nextStep}>{progressIdx < 2 ? <>Next</> : <>Submit</>}</Button>
+            <Group className="stepper-nav" justify="center" mt="xl">
+                {progressIdx > 0 && <button className="accent-button" onClick={prevStep}>Back</button>}
+                <button className="accent-button" onClick={nextStep}>{progressIdx < 2 ? <>Next</> : <>Submit</>}</button>
             </Group>
+
         </div>
     );
 }

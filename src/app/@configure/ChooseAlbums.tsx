@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect, useContext, useRef } from "react";
-import { Album, useGameAuth, useSongGameAuth } from "src/resources/contexts";
+import { Album, useGameAuth, useSongGameAuth } from "../../resources/contexts";
 import { Button, TextInput, Group } from "@mantine/core";
+import React from "react";
 
 
 const ChooseAlbums: React.FC = () => {
@@ -54,7 +55,7 @@ const ChooseAlbums: React.FC = () => {
 
                     </div> :
                     <div className="flex justify-between">
-                        <Button>Play with All Albums</Button>
+                        <Button className="accent-button">Play with All Albums</Button>
                         <Button onClick={() => setShowAlbumSelect(true)}>Select Albums</Button>
                     </div>
             }

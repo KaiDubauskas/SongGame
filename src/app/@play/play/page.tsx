@@ -1,11 +1,12 @@
 "use client";
 import router, { useRouter } from "next/navigation"
 import { useState, useEffect, useContext, useRef } from "react";
-import { Album, useGameAuth, useSongGameAuth } from "src/resources/contexts";
+import { Album, useGameAuth, useSongGameAuth } from "../../../resources/contexts";
 import { Button, TextInput, Group } from "@mantine/core";
 import { useDidUpdate } from '@mantine/hooks';
 import { usePrevious } from '@mantine/hooks';
 import { Notifications, notifications } from "@mantine/notifications";
+import React from "react";
 
 
 type Question = {
@@ -99,7 +100,6 @@ const App: React.FC = () => {
     }
 
     return (
-
         <div>
             <Notifications position="top-center" zIndex={1000} />
             {isLoading ? <h1>Fetching Questions...</h1> :

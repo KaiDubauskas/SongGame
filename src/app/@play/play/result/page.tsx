@@ -2,6 +2,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from "@mantine/core";
+import React from "react";
 
 const App: React.FC = () => {
     const router = useRouter();

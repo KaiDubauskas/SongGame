@@ -1,0 +1,57 @@
+.mantine-Stepper-stepLabel{
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+.mantine-Stepper-stepDescription{
+  margin-top: 0.1em;
+  color: var(--color-murk-text-dark)
+}
+.mantine-Stepper-separator{
+    background-color: var(--color-murk-highlight);
+    border-radius: 5px;
+    margin: 0em 2em;
+}
+.mantine-Stepper-step{
+    &[data-progress] {
+    .mantine-Stepper-stepIcon{
+        border-color: var(--color-murk-text);
+        border-width: 0.2em;
+    }
+  }
+}
+.mantine-Stepper-stepIcon{
+    background-color: var(--color-murk-highlight);
+    border-radius: 50%;
+    color:  var(--color-murk-text);
+    border-color: var(--color-murk-foreground);
+}
+
+.stepper-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.mantine-Stepper-root{
+   height: 80%;
+   flex-shrink: 2;
+}
+.mantine-Stepper-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.stepper-nav{
+    justify-content: space-between;
+    padding: 0em 3em;
+}
+
+
+
+
+
+
+
+

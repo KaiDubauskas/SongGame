@@ -3,7 +3,19 @@
 @tailwind utilities;
 
 
+:root {
+  --color-murk-background: #2d343d;
+  --color-murk-foreground: #aec3b0;
+  --color-murk-highlight: #598392;
+  --color-murk-accent: #a4cb50;
+  --color-murk-accent-dark: #769339;
+  --color-murk-text: #eff6e0;
+  --color-murk-text-dark: #d1d4c5;
+  --color-murk-dark: #01161e;
+}
+
 *{
+  font-family: "Trebuchet MS", "sans-serif", system-ui, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -14,3 +26,26 @@
   justify-content: center;
   align-items: center;
 }
+
+.brighten{
+  filter: brightness(1.2);
+} 
+
+.mantine-AppShell-header{
+  background-color: var(--color-murk-background) !important;
+}
+
+.accent-button{
+  background-color: var(--color-murk-accent);
+  color: var(--color-murk-text);
+  padding: 0.6em 1.3em;
+  cursor: pointer;
+  border-radius: 0.4em;
+  font-weight: 600;
+  border: 3px solid transparent;
+  
+}
+.accent-button:hover{
+  border: 3px solid var(--color-murk-accent-dark);
+}
+
