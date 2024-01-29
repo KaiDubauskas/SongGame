@@ -10,6 +10,8 @@ import "@mantine/core/styles.css";
 import "./configure.css";
 import "../globals.css";
 import { useRouter } from "next/navigation";
+import { IconCircleArrowRight } from "@tabler/icons-react";
+import { IconCircleArrowLeft } from "@tabler/icons-react"
 import React from "react";
 
 
@@ -33,20 +35,32 @@ const App: React.FC = () => {
         <div className="stepper-container w-full h-full pb-5 px-10 text-murk-text">
             <Stepper active={progressIdx} size="md">
                 <Stepper.Step label="Artist" description={artistName}>
-                    <ChooseArtist />
+                    <div className="center h-full">
+                        <ChooseArtist />
+                    </div>
                 </Stepper.Step>
                 <Stepper.Step label="Game Mode">
-                    <ChooseMode />
+                    <div className="center h-full">
+                        <ChooseMode />
+                    </div>
                 </Stepper.Step>
-                <Stepper.Step label="Configure" description="">
-                    <ChooseAlbums />
+                <Stepper.Step label="Configure">
+                    <div className="center h-full">
+                        <ChooseAlbums />
+                    </div>
                 </Stepper.Step>
             </Stepper>
-            <Group className="stepper-nav" justify="center" mt="xl">
-                {progressIdx > 0 && <button className="accent-button" onClick={prevStep}>Back</button>}
-                <button className="accent-button" onClick={nextStep}>{progressIdx < 2 ? <>Next</> : <>Submit</>}</button>
-            </Group>
+            <div className="center stepper-nav-container">
+                <div className="stepper-nav">
+                    <div className="back-button">
+                        {progressIdx > 0 && <IconCircleArrowLeft stroke={1.5} color='var(--color-murk-accent)' size={"100%"} onClick={prevStep} />}
+                    </div>
+                    <div className="next-button">
+                        <IconCircleArrowRight stroke={1.5} color='var(--color-murk-accent)' size={"100%"} onClick={nextStep} />
+                    </div>
 
+                </div>
+            </div>
         </div>
     );
 }

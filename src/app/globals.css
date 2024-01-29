@@ -31,6 +31,9 @@
   filter: brightness(1.2);
 } 
 
+.mantine-AppShell-main{
+  height: 100%;
+}
 .mantine-AppShell-header{
   background-color: var(--color-murk-background) !important;
 }

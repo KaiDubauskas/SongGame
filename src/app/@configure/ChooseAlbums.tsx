@@ -37,13 +37,13 @@ const ChooseAlbums: React.FC = () => {
 
 
     return (
-        <div className="center flex-col py-4 overflow-y-scroll">
+        <div className="center flex-col py-4 h-full overflow-y-scroll">
             <h1 className="flex">
                 {artistName}
             </h1>
             {
                 showAlbumSelect ?
-                    <div className="">
+                    <div className="h-full ">
                         {
                             albumRef.current.map((album: Album, idx: number) => (
                                 <div key={idx} className="flex">

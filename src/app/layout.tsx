@@ -32,6 +32,7 @@ export default function RootLayout({ configure, play }: {
                         header={{ height: 70 }}
                         padding="md"
                         withBorder={false}
+                        style={{ height: "100%" }}
                     >
                         <AppShell.Header className="flex items-center justify-center">
                             <Image src={TuneTrivia} alt="TuneTrivia" style={{ objectFit: "contain", height: "3em" }} />
