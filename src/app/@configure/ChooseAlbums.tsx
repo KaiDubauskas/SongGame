@@ -35,25 +35,38 @@ const ChooseAlbums: React.FC = () => {
         }
     };
 
+    const selectAll = () => {
+        setSelectedAlbums(albumRef.current);
+
+    }
+
 
     return (
-        <div className="center flex-col py-4 h-full overflow-y-scroll">
+        <div className="center flex-col py-4 h-full">
             <h1 className="flex">
                 {artistName}
             </h1>
             {
                 showAlbumSelect ?
-                    <div className="h-full ">
-                        {
-                            albumRef.current.map((album: Album, idx: number) => (
-                                <div key={idx} className="flex">
-                                    <input type="checkbox" onChange={(e) => handleAlbumSelectionChange(album, e.target.checked)} />
-                                    <p>{album.albumName}</p>
-                                </div>
-                            ))
-                        }
+                    <>
+                        <div className="h-full overflow-y-scroll">
+                            {
+                                albumRef.current.map((album: Album, idx: number) => (
+                                    <div key={idx} className="flex">
+                                        <input
+                                            type="checkbox"
+                                            onChange={(e) => handleAlbumSelectionChange(album, e.target.checked)}
+                                            checked={selectedAlbums.some(selectedAlbum => selectedAlbum.albumId === album.albumId)}
+                                        />
+                                        <p>{album.albumName}</p>
+                                    </div>
+                                ))
+                            }
 
-                    </div> :
+                        </div>
+                        <button onClick={selectAll}>Select All Albums</button>
+                    </>
+                    :
                     <div className="flex justify-between">
                         <Button className="accent-button">Play with All Albums</Button>
                         <Button onClick={() => setShowAlbumSelect(true)}>Select Albums</Button>

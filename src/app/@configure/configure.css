@@ -30,6 +30,8 @@
 .stepper-container{
     display: flex;
     flex-direction: column;
+    padding: 0 10%;
+    padding-bottom: 4em;
 }
 
 .mantine-Stepper-root{
@@ -37,6 +39,7 @@
    overflow-y: scroll;
    display: flex;
    flex-direction: column;
+   min-width: 620px;
 }
 
 .mantine-Stepper-content{
@@ -51,10 +54,10 @@
 .stepper-nav-container{
     display: flex;
     width: 100%;
-    margin-top: 2em;
+    margin-top: 1.5em;
 }
 .stepper-nav{
-    width: 50%;
+    width: 70%;
     position: relative;
     height: 4em;
 }

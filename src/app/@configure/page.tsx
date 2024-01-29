@@ -32,7 +32,7 @@ const App: React.FC = () => {
     }
 
     return (
-        <div className="stepper-container w-full h-full pb-5 px-10 text-murk-text">
+        <div className="stepper-container w-full h-full text-murk-text">
             <Stepper active={progressIdx} size="md">
                 <Stepper.Step label="Artist" description={artistName}>
                     <div className="center h-full">
