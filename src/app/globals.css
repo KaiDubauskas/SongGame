@@ -41,14 +41,34 @@
 .accent-button{
   background-color: var(--color-murk-accent);
   color: var(--color-murk-text);
-  padding: 0.6em 1.3em;
+  padding: 0.4em 1em;
   cursor: pointer;
   border-radius: 0.4em;
   font-weight: 600;
   border: 3px solid transparent;
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .accent-button:hover{
   border: 3px solid var(--color-murk-accent-dark);
 }
 
+.accent-input{
+  height: 100%;
+  background-color: var(--color-murk-background);
+  padding: 0.5em;
+  border: none; 
+  font-size: 1.2em;
+  border-radius: 0.4em;
+  border-bottom: 2px solid var(--color-murk-accent);
+  margin-right: 1em;
+}
+.accent-input:focus {
+    border: none; 
+    outline: none;
+    border-bottom: 2px solid var(--color-murk-accent-dark);
+}
+.accent-input::placeholder {
+    opacity: 0.4;
+}

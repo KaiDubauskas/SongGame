@@ -2,9 +2,11 @@
 import router, { useRouter } from "next/navigation"
 import { useState, useEffect, useContext, useRef } from "react";
 import { Album, useGameAuth, useSongGameAuth } from "../../../resources/contexts";
-import { Button, TextInput, Group } from "@mantine/core";
+import { TextInput, Group } from "@mantine/core";
 import { useDidUpdate } from '@mantine/hooks';
 import { usePrevious } from '@mantine/hooks';
+import "../../globals.css"
+import "./play.css"
 import { Notifications, notifications } from "@mantine/notifications";
 import React from "react";
 
@@ -100,16 +102,22 @@ const App: React.FC = () => {
     }
 
     return (
-        <div>
-            <Notifications position="top-center" zIndex={1000} />
-            {isLoading ? <h1>Fetching Questions...</h1> :
-                <div>
-                    <h1>Question: {questionNumber + 1}/{numQuestions}</h1>
-                    {questions[questionNumber]?.lyric}
-                    <TextInput value={answer} onChange={(e) => setAnswer(e.currentTarget.value)} />
-                    <Button onClick={handleSubmit}>Submit</Button>
-                </div>
-            }
+        <div className="center w-full h-full text-murk-text">
+            <Notifications position="top-right" zIndex={1000} />
+            <div className="center play-inner-container">
+                {isLoading ? <h1>Fetching Questions...</h1> :
+                    <div>
+                        <h1 className="ml-1 mb-1">Question: {questionNumber + 1}/{numQuestions}</h1>
+                        <div className="lyric-container">
+                            {questions[questionNumber]?.lyric}
+                        </div>
+                        <div className="play-actions-container">
+                            <input placeholder="Enter Song Title... " type="text" className="accent-input brighten" onChange={(e) => setAnswer(e.currentTarget.value)} value={answer} />
+                            <button className="accent-button text-sm h-full" onClick={handleSubmit}>Next</button>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
 
     )
