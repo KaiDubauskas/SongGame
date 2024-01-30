@@ -30,6 +30,14 @@ const App: React.FC = () => {
     const [numCorrect, setNumCorrect] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [questionNumber]);
+
     const formatAnswer = (text: string) => {
         return text.replace(/\([^()]*\)/g, '').trim();
     }
@@ -81,6 +89,7 @@ const App: React.FC = () => {
             color: 'green',
         });
     }
+
     const showInCorrectNotification = (correctAnswer: string) => {
         notifications.show({
             title: 'Incorrect!',
@@ -101,6 +110,12 @@ const App: React.FC = () => {
         setAnswer("");
     }
 
+    const handleKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            handleSubmit();
+        }
+    };
+
     return (
         <div className="center w-full h-full text-murk-text">
             <Notifications position="top-right" zIndex={1000} />
@@ -112,7 +127,15 @@ const App: React.FC = () => {
                             {questions[questionNumber]?.lyric}
                         </div>
                         <div className="play-actions-container">
-                            <input placeholder="Enter Song Title... " type="text" className="accent-input brighten" onChange={(e) => setAnswer(e.currentTarget.value)} value={answer} />
+                            <input
+                                ref={inputRef}
+                                placeholder="Enter Song Title... "
+                                type="text"
+                                className="accent-input brighten"
+                                onKeyDown={handleKeyPress}
+                                onChange={(e) => setAnswer(e.currentTarget.value)}
+                                value={answer}
+                            />
                             <button className="accent-button text-sm h-full" onClick={handleSubmit}>Next</button>
                         </div>
                     </div>
