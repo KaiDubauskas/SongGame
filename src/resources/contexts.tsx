@@ -82,7 +82,7 @@ export function useSongGameAuth(): SongGuesserContextType {
 
 export function SongGuesserProvider({ children }: { children: React.ReactNode }) {
     const [albums, setAlbums] = useState<Album[]>([]);
-    const [numQuestions, setNumQuestions] = useState<number>(3);
+    const [numQuestions, setNumQuestions] = useState<number>(5);
     const { artistId } = useGameAuth();
 
     useEffect(() => {
