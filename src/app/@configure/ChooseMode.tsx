@@ -10,8 +10,7 @@ import React from "react";
 const ChooseMode: React.FC = () => {
     return (
         <div className="center flex-col">
-            <h1>Choose Game Mode</h1>
-            <TextInput className="w-40 my-2" />
+            <h1>TODO: add more game modes. For now just click the next button</h1>
         </div>
     )
 }

@@ -25,8 +25,8 @@ const ChooseArtist: React.FC = () => {
 
     return (
         <div className="center flex-col">
-            <h1>Enter the Artist Name</h1>
-            <TextInput className="w-40 my-2" value={nameInput} onChange={(e) => setNameInput(e.currentTarget.value)} />
+            <h1 className="text-xl m-0">Enter an Artist's Name</h1>
+            <input type="text" placeholder="eg. Lana Del Rey" className="accent-input brighten my-2 mx-0" value={nameInput} onChange={(e) => setNameInput(e.currentTarget.value)} />
         </div>
     )
 }

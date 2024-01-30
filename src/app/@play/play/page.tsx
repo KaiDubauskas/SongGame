@@ -137,7 +137,7 @@ const App: React.FC = () => {
                                 onChange={(e) => setAnswer(e.currentTarget.value)}
                                 value={answer}
                             />
-                            <button className="accent-button text-sm h-full" onClick={handleSubmit}>Next</button>
+                            <button className="accent-button text-sm h-full mx-4" onClick={handleSubmit}>Next</button>
                         </div>
                     </div>
                 }

@@ -62,7 +62,6 @@
   font-size: 1.2em;
   border-radius: 0.4em;
   border-bottom: 2px solid var(--color-murk-accent);
-  margin-right: 1em;
 }
 .accent-input:focus {
     border: none; 
