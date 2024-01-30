@@ -7,7 +7,7 @@ import { useDidUpdate } from '@mantine/hooks';
 import { usePrevious } from '@mantine/hooks';
 import "../../globals.css"
 import "./play.css"
-import { Notifications, notifications } from "@mantine/notifications";
+import { Notifications, notifications, cleanNotifications } from "@mantine/notifications";
 import React from "react";
 
 
@@ -73,6 +73,7 @@ const App: React.FC = () => {
             }
             setQuestions(newQuestions);
         }
+        cleanNotifications();
         loadQuestions().then(() => setIsLoading(false));
     }, []);
 
@@ -147,15 +148,4 @@ const App: React.FC = () => {
 }
 
 export default App;
-
-
-// {
-//     albums?.map((album: Album, idx: number) => (
-//         <div key={idx} className="flex">
-//             <input type="checkbox" />
-//             <p>{album.albumName}</p>
-//         </div>
-//     ))
-// }
-
 
