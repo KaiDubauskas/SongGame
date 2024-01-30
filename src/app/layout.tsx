@@ -1,14 +1,14 @@
 "use client";
-import { MantineProvider, AppShell } from "@mantine/core";
+import React from "react";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { GameContextProvider } from "../resources/contexts";
+import { MantineProvider, AppShell } from "@mantine/core";
+import Image from "next/image";
+import TuneTrivia from "../assets/TuneTrivia.png"
 import "@mantine/core/styles.css";
 import '@mantine/notifications/styles.css';
 import './globals.css';
-import { usePathname, useRouter } from "next/navigation";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import TuneTrivia from "../assets/TuneTrivia.png"
-import React from "react";
 
 export default function RootLayout({ configure, play }: {
     configure: React.ReactNode,
@@ -35,7 +35,7 @@ export default function RootLayout({ configure, play }: {
                         style={{ height: "100%" }}
                     >
                         <AppShell.Header className="flex items-center justify-center">
-                            <Image src={TuneTrivia} alt="TuneTrivia" style={{ objectFit: "contain", height: "3em" }} />
+                            <Image priority src={TuneTrivia} alt="TuneTrivia" style={{ objectFit: "contain", height: "3em", width: "auto" }} />
                         </AppShell.Header>
                         <AppShell.Main>
                             <GameContextProvider>

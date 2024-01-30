@@ -1,7 +1,6 @@
 "use client";
-import { useState, useEffect, useContext } from "react";
-import { useRouter, useSearchParams } from 'next/navigation';
 import React from "react";
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const App: React.FC = () => {
     const router = useRouter();

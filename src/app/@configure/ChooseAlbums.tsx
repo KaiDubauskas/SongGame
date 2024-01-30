@@ -1,8 +1,7 @@
 "use client";
-import { useState, useEffect, useContext, useRef } from "react";
-import { Album, useGameAuth, useSongGameAuth } from "../../resources/contexts";
-import { TextInput, Group } from "@mantine/core";
 import React from "react";
+import { useState, useEffect, useRef } from "react";
+import { Album, useGameAuth, useSongGameAuth } from "../../resources/contexts";
 
 
 const ChooseAlbums: React.FC = () => {
@@ -18,7 +17,7 @@ const ChooseAlbums: React.FC = () => {
 
     useEffect(() => {
         setAlbums(selectedAlbums)
-    }, [selectedAlbums]);
+    }, [selectedAlbums, setAlbums]);
 
     const handleAlbumSelectionChange = (selectedAlbum: Album, isChecked: boolean) => {
         if (isChecked) {
@@ -37,7 +36,6 @@ const ChooseAlbums: React.FC = () => {
 
     const selectAll = () => {
         setSelectedAlbums(albumRef.current);
-
     }
 
 

@@ -86,10 +86,6 @@ export function SongGuesserProvider({ children }: { children: React.ReactNode })
     const { artistId } = useGameAuth();
 
     useEffect(() => {
-        console.log("Albums from context ", albums);
-    }, [albums])
-
-    useEffect(() => {
         let getAlbums = async () => {
             try {
                 let response = await fetch(`/api/getAlbums?artistId=${artistId}`);

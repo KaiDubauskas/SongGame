@@ -1,18 +1,18 @@
 "use client";
-import { useState, useEffect, useContext } from "react";
-import { Button, Group, MantineProvider, Stepper } from "@mantine/core";
-import { useGameAuth, useSongGameAuth } from "../../resources/contexts";
-import { Transition } from '@mantine/core';
+import React from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useGameAuth } from "../../resources/contexts";
+import { Stepper } from "@mantine/core";
+import { IconCircleArrowRight } from "@tabler/icons-react";
+import { IconCircleArrowLeft } from "@tabler/icons-react"
 import ChooseArtist from "./ChooseArtist";
 import ChooseAlbums from "./ChooseAlbums";
-import ChooseMode from "./ChooseMode"
+import ChooseMode from "./ChooseMode";
 import "@mantine/core/styles.css";
 import "./configure.css";
 import "../globals.css";
-import { useRouter } from "next/navigation";
-import { IconCircleArrowRight } from "@tabler/icons-react";
-import { IconCircleArrowLeft } from "@tabler/icons-react"
-import React from "react";
+
 
 
 const App: React.FC = () => {

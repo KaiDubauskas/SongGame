@@ -1,14 +1,11 @@
 "use client";
-import router, { useRouter } from "next/navigation"
-import { useState, useEffect, useContext, useRef } from "react";
-import { Album, useGameAuth, useSongGameAuth } from "../../../resources/contexts";
-import { TextInput, Group } from "@mantine/core";
-import { useDidUpdate } from '@mantine/hooks';
-import { usePrevious } from '@mantine/hooks';
+import React from "react";
+import { useRouter } from "next/navigation"
+import { useState, useEffect, useRef } from "react";
+import { useSongGameAuth } from "../../../resources/contexts";
+import { Notifications, notifications, cleanNotifications } from "@mantine/notifications";
 import "../../globals.css"
 import "./play.css"
-import { Notifications, notifications, cleanNotifications } from "@mantine/notifications";
-import React from "react";
 
 
 type Question = {
@@ -75,13 +72,13 @@ const App: React.FC = () => {
         }
         cleanNotifications();
         loadQuestions().then(() => setIsLoading(false));
-    }, []);
+    }, [albums, numQuestions]);
 
     useEffect(() => {
         if (questionNumber >= numQuestions) {
             router.push(`/play/result?numCorrect=${numCorrect}&numQuestions=${numQuestions}`);
         }
-    }, [questionNumber])
+    }, [questionNumber, router, numQuestions, numCorrect])
 
     const showCorrectNotification = () => {
         notifications.show({
