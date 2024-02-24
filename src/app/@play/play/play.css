@@ -6,8 +6,10 @@
 .lyric-container{
     background-color: var(--color-murk-dark);
     padding: 1.5em;
+    padding-top: 0.8em;
     border-radius: 1em;
     font-size: 1.2em;
+    white-space: pre-line;
 }
 .play-actions-container{
     height: 2.2em;

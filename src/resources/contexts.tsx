@@ -1,11 +1,12 @@
 "use client";
 import React, { useState, useEffect, createContext, ReactNode, Dispatch, SetStateAction, useContext } from "react";
-
+import { hardcodedArtists, hardcodedArtistContent } from "./hardcoded";
 interface GameContextType {
     artistName: string;
     setArtistName: (artistName: string) => void;
     artistId: string;
     setArtistId: (artistId: string) => void;
+    isArtistHardcoded: boolean;
 }
 
 const GameContext = createContext<GameContextType>({
@@ -13,6 +14,7 @@ const GameContext = createContext<GameContextType>({
     setArtistName: () => { },
     artistId: "",
     setArtistId: () => { },
+    isArtistHardcoded: false,
 });
 
 export function useGameAuth(): GameContextType {
@@ -22,6 +24,7 @@ export function useGameAuth(): GameContextType {
 export function GameContextProvider({ children }: { children: React.ReactNode }) {
     const [artistName, setArtistName] = useState<string>("");
     const [artistId, setArtistId] = useState<string>("");
+    const [isArtistHardcoded, setIsArtistHardcoded] = useState<boolean>(false);
 
     useEffect(() => {
         let findArtist = async () => {
@@ -33,8 +36,14 @@ export function GameContextProvider({ children }: { children: React.ReactNode })
                 console.error('Error finding artist ', error)
             }
         }
-        if (artistName != "")
-            findArtist();
+        if (artistName != "") {
+            if (hardcodedArtists.includes(artistName.toLowerCase())) {
+                setIsArtistHardcoded(true);
+                console.log("LOLOLO")
+            } else {
+                findArtist();
+            }
+        }
     }, [artistName])
 
 
@@ -43,6 +52,7 @@ export function GameContextProvider({ children }: { children: React.ReactNode })
         setArtistName,
         artistId,
         setArtistId,
+        isArtistHardcoded
     }
 
 
@@ -64,16 +74,26 @@ export function GameContextProvider({ children }: { children: React.ReactNode })
 export interface Album {
     albumName: string;
     albumId: number;
+    tracks: Track[] | [];
+}
+
+interface Track {
+    trackName: string;
+    lyrics: string;
 }
 interface SongGuesserContextType {
     albums: Album[],
     setAlbums: (albums: Album[]) => void,
     numQuestions: number,
+    difficulty: number,
+    setDifficulty: (difficuly: number) => void,
 }
 const SongGuesserContext = createContext<SongGuesserContextType>({
     albums: [],
     setAlbums: () => { },
-    numQuestions: 10,
+    numQuestions: 5,
+    difficulty: 0,
+    setDifficulty: () => { },
 })
 
 export function useSongGameAuth(): SongGuesserContextType {
@@ -83,7 +103,8 @@ export function useSongGameAuth(): SongGuesserContextType {
 export function SongGuesserProvider({ children }: { children: React.ReactNode }) {
     const [albums, setAlbums] = useState<Album[]>([]);
     const [numQuestions, setNumQuestions] = useState<number>(5);
-    const { artistId } = useGameAuth();
+    const [difficulty, setDifficulty] = useState<number>(0);
+    const { artistId, isArtistHardcoded, artistName } = useGameAuth();
 
     useEffect(() => {
         let getAlbums = async () => {
@@ -107,9 +128,21 @@ export function SongGuesserProvider({ children }: { children: React.ReactNode })
             getAlbums();
     }, [artistId])
 
+    useEffect(() => {
+        if (isArtistHardcoded && hardcodedArtists.includes(artistName.toLowerCase())) {
+            const artist = hardcodedArtistContent.find(artist => artist.name.toLowerCase() === artistName.toLowerCase());
+            if (artist)
+                setAlbums(artist.albums)
+        }
+    }, [isArtistHardcoded])
+
+    useEffect(() => {
+        console.log("ALSNDLKNS", albums);
+    }, [albums])
+
     return (
         <>
-            <SongGuesserContext.Provider value={{ albums, setAlbums, numQuestions }}>
+            <SongGuesserContext.Provider value={{ albums, setAlbums, numQuestions, difficulty, setDifficulty }}>
                 {children}
             </SongGuesserContext.Provider>
         </>

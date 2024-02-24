@@ -15,6 +15,7 @@ const ChooseAlbums: React.FC = () => {
     // A persistent copy of the initial value of albums is stored
     const albumRef = useRef(albums);
 
+
     useEffect(() => {
         setAlbums(selectedAlbums)
     }, [selectedAlbums, setAlbums]);
