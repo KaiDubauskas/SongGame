@@ -41,9 +41,9 @@ const ChooseAlbums: React.FC = () => {
 
 
     return (
-        <div className="center flex-col py-4 h-full">
-            <h1 className="flex">
-                {artistName}
+        <div className="center flex-col pt-4 h-full">
+            <h1 className="flex text-xl mb-2">
+                Choose which {artistName} albums to play with
             </h1>
             {
                 showAlbumSelect ?
@@ -63,7 +63,7 @@ const ChooseAlbums: React.FC = () => {
                             }
 
                         </div>
-                        <button className="accent-button" onClick={selectAll}>Select All Albums</button>
+                        <button className="accent-button mt-3" onClick={selectAll}>Select All Albums</button>
                     </>
                     :
                     <div className="flex justify-between">
