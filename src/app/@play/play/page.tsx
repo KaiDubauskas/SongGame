@@ -23,9 +23,11 @@ type HardcodedTrack = {
     lyrics: string;
 }
 
+const testQ: Question[] = [{ answer: "Cruel World", lyric: "Share my body and my mind with you\nThat\'s all over now\nDid what I had to do\n\'Cause you\'re so far past me now\nShare my body and my life with you\nThat\'s way over now\nThere\'s not anymore I can do\nYou\'re so famous now\nGot your Bible, got your gun\nAnd you like to party and have fun\nAnd I like my candy and your women\nI\'m finally happy now that you\'re gone\nGot my little red party dress on\nEverybody knows that I\'m the best\nI\'m crazy, yeah yeah\nGet a little bit of Bourbon in ya\nGet a little bit suburban\nAnd go crazy, yeah yeah\nBecause you\'re young, you\'re wild, you\'re free\nYou\'re dancing circles around me\nYou\'re fucking crazy\nOh oh, oh oh, you\'re crazy for me\nI shared my body and my mind with you\nThat\'s all over now\nI did what I had to do\nI found another, anyhow\nShared my body and my mind with you\nThat\'s all over now\nI did what I had to do\nI could see you leaving now\nI got your Bible and your gun\nAnd you love to party and have fun\nAnd I love your women and all of your heroin\nAnd I\'m so happy now that you\'re gone\nGot my little red party dress on\nEverybody knows that I\'m a mess\nI\'m crazy, yeah yeah\nGet a little bit of Bourbon in ya\nGet a little bit suburban\nAnd go crazy, yeah yeah\nBecause you\'re young, you\'re wild, you\'re free\nYou\'re dancing circles around me\nYou\'re fucking crazy\nOh oh oh oh, oh oh oh oh, you\'re crazy for me\nGot your Bible and your gun\nYou like your women and you like fun\nI like my candy and your heroin\nAnd I\'m so happy, so happy now you\'re gone\nGot my little red party dress on\nEverybody knows that I\'m the best\nI\'m crazy, yeah yeah\nGet a little bit of Bourbon in \'ya\nGet a little bit suburban\nAnd go crazy, yeah yeah\nBecause you\'re young, you\'re wild, you\'re free\nYou\'re dancing circles around me\nYou\'re fucking crazy\nOh oh oh, oh oh oh, you\'re crazy for me\nOh oh, oh, you\'re crazy for me" }]
+
 const App: React.FC = () => {
     const router = useRouter();
-    const { albums, numQuestions } = useSongGameAuth();
+    const { albums, numQuestions, difficulty } = useSongGameAuth();
     const { isArtistHardcoded } = useGameAuth();
     const [questions, setQuestions] = useState<Question[]>([]);
     const [questionNumber, setQuestionNumber] = useState<number>(0);
@@ -46,7 +48,15 @@ const App: React.FC = () => {
         return text.replace(/\([^()]*\)/g, '').trim();
     }
     const formatLyrics = (text: string) => {
-        return text.replace(/\s*\*+.*\*+\s*\(\d+\)$/, '');
+        let cutEnding = text.replace(/\s*\*+.*\*+\s*\(\d+\)$/, '');
+        let songArr = cutEnding.split('\n')
+
+        if (difficulty[1]) {
+            let lyricStartIdx = Math.floor(Math.random() * (songArr.length - difficulty[1]))
+            let cutLyric = songArr.slice(lyricStartIdx, lyricStartIdx + difficulty[1])
+            return cutLyric.join('\n')
+        }
+        return cutEnding
     }
 
 
@@ -60,7 +70,6 @@ const App: React.FC = () => {
 
             let trackLyricsResponse = (await fetch(`/api/getTrackLyrics?trackId=${trackId}`));
             let trackLyricsData = (await trackLyricsResponse.json()).message.body.lyrics.lyrics_body;
-
             return { answer: formatAnswer(trackName), lyric: formatLyrics(trackLyricsData) } as Question
         } catch (error) {
             console.error('Error getting albums ', error);
@@ -85,8 +94,9 @@ const App: React.FC = () => {
             let trackIdx = Math.floor(Math.random() * tracks.length);
             while (visited.includes(trackIdx))
                 trackIdx = Math.floor(Math.random() * tracks.length);
+
             const track = tracks[trackIdx]
-            setQuestions((prevQuestions) => [...prevQuestions, { answer: track.trackName, lyric: track.lyrics } as Question])
+            setQuestions((prevQuestions) => [...prevQuestions, { answer: track.trackName, lyric: formatLyrics(track.lyrics) } as Question])
             visited.push(trackIdx)
         }
     }
@@ -100,6 +110,7 @@ const App: React.FC = () => {
             loadQuestions().then(() => setIsLoading(false));
         }
     }, [albums, numQuestions]);
+
 
     useEffect(() => {
         if (questionNumber >= numQuestions) {

@@ -15,6 +15,7 @@ export default function RootLayout({ configure, play }: {
     play: React.ReactNode,
 }) {
     const pathname = usePathname() || "";
+
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const router = useRouter();
 

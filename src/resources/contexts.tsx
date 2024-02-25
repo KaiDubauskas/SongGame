@@ -81,19 +81,21 @@ interface Track {
     trackName: string;
     lyrics: string;
 }
+type Difficulty = ["easy", 15] | ["medium", 10] | ["hard", 5] | ["expert", 3]
 interface SongGuesserContextType {
     albums: Album[],
     setAlbums: (albums: Album[]) => void,
     numQuestions: number,
-    difficulty: number,
-    setDifficulty: (difficuly: number) => void,
+    difficulty: Difficulty,
+    setDifficulty: (difficuly: Difficulty) => void,
 }
+
 const SongGuesserContext = createContext<SongGuesserContextType>({
     albums: [],
     setAlbums: () => { },
     numQuestions: 5,
-    difficulty: 0,
-    setDifficulty: () => { },
+    difficulty: ["easy", 15],
+    setDifficulty: (difficulty: Difficulty) => { },
 })
 
 export function useSongGameAuth(): SongGuesserContextType {
@@ -103,8 +105,9 @@ export function useSongGameAuth(): SongGuesserContextType {
 export function SongGuesserProvider({ children }: { children: React.ReactNode }) {
     const [albums, setAlbums] = useState<Album[]>([]);
     const [numQuestions, setNumQuestions] = useState<number>(5);
-    const [difficulty, setDifficulty] = useState<number>(0);
+    const [difficulty, setDifficulty] = useState<Difficulty>(["easy", 15]);
     const { artistId, isArtistHardcoded, artistName } = useGameAuth();
+
 
     useEffect(() => {
         let getAlbums = async () => {
