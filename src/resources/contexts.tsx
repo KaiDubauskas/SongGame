@@ -86,6 +86,7 @@ interface SongGuesserContextType {
     albums: Album[],
     setAlbums: (albums: Album[]) => void,
     numQuestions: number,
+    setNumQuestions: (numQuestions: number) => void,
     difficulty: Difficulty,
     setDifficulty: (difficuly: Difficulty) => void,
 }
@@ -93,7 +94,8 @@ interface SongGuesserContextType {
 const SongGuesserContext = createContext<SongGuesserContextType>({
     albums: [],
     setAlbums: () => { },
-    numQuestions: 5,
+    numQuestions: 10,
+    setNumQuestions: () => { },
     difficulty: ["easy", 15],
     setDifficulty: (difficulty: Difficulty) => { },
 })
@@ -104,7 +106,7 @@ export function useSongGameAuth(): SongGuesserContextType {
 
 export function SongGuesserProvider({ children }: { children: React.ReactNode }) {
     const [albums, setAlbums] = useState<Album[]>([]);
-    const [numQuestions, setNumQuestions] = useState<number>(5);
+    const [numQuestions, setNumQuestions] = useState<number>(10);
     const [difficulty, setDifficulty] = useState<Difficulty>(["easy", 15]);
     const { artistId, isArtistHardcoded, artistName } = useGameAuth();
 
@@ -145,7 +147,7 @@ export function SongGuesserProvider({ children }: { children: React.ReactNode })
 
     return (
         <>
-            <SongGuesserContext.Provider value={{ albums, setAlbums, numQuestions, difficulty, setDifficulty }}>
+            <SongGuesserContext.Provider value={{ albums, setAlbums, numQuestions, setNumQuestions, difficulty, setDifficulty }}>
                 {children}
             </SongGuesserContext.Provider>
         </>

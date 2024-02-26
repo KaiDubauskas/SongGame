@@ -87,6 +87,10 @@ const App: React.FC = () => {
         setQuestions(newQuestions);
     }
 
+    function sleep(time: number) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
     const loadHardcodedQuestions = () => {
         let visited: number[] = []
         const tracks: HardcodedTrack[] = albums.reduce((acc, album) => acc.concat(album.tracks), [] as HardcodedTrack[]);
@@ -104,8 +108,11 @@ const App: React.FC = () => {
     useEffect(() => {
         cleanNotifications();
         if (isArtistHardcoded) {
-            loadHardcodedQuestions()
-            setIsLoading(false);
+            sleep(2300).then(() => {
+                loadHardcodedQuestions()
+                setIsLoading(false);
+            })
+
         } else {
             loadQuestions().then(() => setIsLoading(false));
         }

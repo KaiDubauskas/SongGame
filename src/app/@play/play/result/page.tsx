@@ -14,7 +14,7 @@ const App: React.FC = () => {
 
     return (
         <div className="center flex-col w-full h-full text-murk-text">
-            <h1>Result: </h1>
+            <h1 className="text-xl mb-2">Score:</h1>
             <h3 className="mb-3">You got {numCorrect} out of {numQuestions} questions correct!</h3>
             <button className="accent-button" onClick={handlePlayAgain}>Play Again</button>
         </div>
